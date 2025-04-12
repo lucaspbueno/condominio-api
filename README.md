@@ -129,10 +129,6 @@ Foi desenvolvido como solução para o desafio técnico da Green Acesso, impleme
 A documentação interativa da API está disponível em:  
 [Swagger UI](http://localhost:3000/api-docs)
 
-## 🖼️ Exemplo de Interface
-
-![Interface do Projeto](attachments/Crud%20Project.png)
-
 ## 🏛️ Estrutura do Projeto
 
 ```plaintext
@@ -146,8 +142,11 @@ condominio-project/
 │   ├── utils/           # Utilitários (ex.: processamento de arquivos)
 ├── uploads/             # Arquivos enviados
 ├── .env                 # Variáveis de ambiente
+├── .env.sample          # Arquivo de exemplo para o arquivo .env
 ├── docker-compose.yaml  # Configuração do Docker Compose
-├── Dockerfile           # Configuração do Docker
+├── Dockerfile           # Configuração do Dockerfile
+├── .dockerignore        # Sinaliza quais arquivos devem ser ignorados pelo docker
+├── .gitignore           # Sinaliza quais arquivos devem ser ignorados pelo git
 └── README.md            # Documentação do projeto
 ```
 
