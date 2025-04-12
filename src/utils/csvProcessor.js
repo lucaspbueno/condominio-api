@@ -3,38 +3,37 @@ const { parse } = require('csv-parse');
 const db = require('../models');
 
 /**
- * Processa arquivo CSV de boletos e importa para o banco de dados
+ * Processa um arquivo CSV com boletos
  * @param {string} filePath - Caminho do arquivo CSV
- * @returns {Promise<Array>} - Array de boletos importados
+ * @returns {Promise<Array>} - Array com os boletos importados
  */
 const processBoletosCSV = async (filePath) => {
-  const results = [];
-  
-  // Criar uma promise para processar o CSV
   return new Promise((resolve, reject) => {
+    const boletos = [];
+    
     fs.createReadStream(filePath)
       .pipe(parse({
         delimiter: ';',
         columns: true,
-        skip_empty_lines: true
+        trim: true
       }))
-      .on('data', async (data) => {
-        results.push(data);
+      .on('data', async (item) => {
+        boletos.push(item);
       })
       .on('end', async () => {
         try {
-          // Processar cada linha do CSV
           const importedBoletos = [];
           
-          for (const item of results) {
+          for (const item of boletos) {
             // Verificar se o lote existe
-            let lote = await db.Lote.findByPk(parseInt(item.unidade));
+            let lote = await db.Lote.findOne({
+              where: { nome: `00${item.unidade}` }
+            });
             
             // Se o lote não existir, cria um novo
             if (!lote) {
               lote = await db.Lote.create({
-                id: parseInt(item.unidade),
-                nome: `Lote ${item.unidade}`,
+                nome: `00${item.unidade}`,
                 ativo: true
               });
             }

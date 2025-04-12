@@ -1,14 +1,12 @@
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
 
-// Opções de configuração do Swagger
 const options = {
   definition: {
     openapi: '3.0.0',
     info: {
       title: 'API de Gerenciamento de Boletos de Condomínio',
       version: '1.0.0',
-      description: 'API para importar e gerenciar boletos de condomínio',
+      description: 'API para importar, processar e listar boletos de condomínio',
       contact: {
         name: 'Lucas Parreiras',
         email: 'lucaspbueno22@gmail.com'
@@ -16,21 +14,46 @@ const options = {
     },
     servers: [
       {
-        url: `http://localhost:${process.env.API_PORT || 3000}`,
-        description: 'Servidor de desenvolvimento'
-      },
+        url: '/api',
+        description: 'API do servidor'
+      }
     ],
+    components: {
+      responses: {
+        Error: {
+          description: 'Erro na requisição',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  error: {
+                    type: 'string'
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    tags: [
+      {
+        name: 'Boletos',
+        description: 'Operações relacionadas a boletos'
+      },
+      {
+        name: 'Lotes',
+        description: 'Operações relacionadas a lotes'
+      }
+    ]
   },
   apis: [
     './src/routes/*.js',
     './src/models/*.js'
-  ],
+  ]
 };
 
-// Gerar especificação Swagger
-const specs = swaggerJsdoc(options);
+const swaggerSpec = swaggerJSDoc(options);
 
-module.exports = {
-  serve: swaggerUi.serve,
-  setup: swaggerUi.setup(specs)
-};
+module.exports = swaggerSpec;

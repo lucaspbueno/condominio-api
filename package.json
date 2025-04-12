@@ -5,7 +5,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate:undo": "npx sequelize-cli db:migrate:undo",
+    "seed": "npx sequelize-cli db:seed:all",
+    "create:pdf": "node src/utils/createExamplePDF.js"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +20,10 @@
     "csv-parse": "^5.6.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "fs-extra": "^11.3.0",
     "multer": "^1.4.5-lts.2",
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^1.1.1",
     "pg": "^8.14.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.7",

@@ -5,44 +5,7 @@ const upload = require('../middlewares/uploadMiddleware');
 
 /**
  * @swagger
- * components:
- *   schemas:
- *     Boleto:
- *       type: object
- *       required:
- *         - nome_sacado
- *         - id_lote
- *         - valor
- *         - linha_digitavel
- *       properties:
- *         id:
- *           type: integer
- *           description: ID do boleto
- *         nome_sacado:
- *           type: string
- *           description: Nome do sacado
- *         id_lote:
- *           type: integer
- *           description: ID do lote associado
- *         valor:
- *           type: number
- *           format: float
- *           description: Valor do boleto
- *         linha_digitavel:
- *           type: string
- *           description: Linha digitável do boleto
- *         ativo:
- *           type: boolean
- *           description: Status do boleto
- *         criado_em:
- *           type: string
- *           format: date-time
- *           description: Data de criação
- */
-
-/**
- * @swagger
- * /api/boletos:
+ * /boletos:
  *   get:
  *     summary: Retorna todos os boletos
  *     tags: [Boletos]
@@ -88,12 +51,14 @@ const upload = require('../middlewares/uploadMiddleware');
  *                     base64:
  *                       type: string
  *                       description: Relatório PDF em formato base64
+ *       500:
+ *         $ref: '#/components/responses/Error'
  */
 router.get('/', boletoController.index);
 
 /**
  * @swagger
- * /api/boletos/import/csv:
+ * /boletos/import/csv:
  *   post:
  *     summary: Importa boletos de um arquivo CSV
  *     tags: [Boletos]
@@ -126,14 +91,21 @@ router.get('/', boletoController.index);
  *                     $ref: '#/components/schemas/Boleto'
  *       400:
  *         description: Nenhum arquivo foi enviado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
  *       500:
- *         description: Erro no servidor
+ *         $ref: '#/components/responses/Error'
  */
 router.post('/import/csv', upload.single('file'), boletoController.importCSV);
 
 /**
  * @swagger
- * /api/boletos/import/pdf:
+ * /boletos/import/pdf:
  *   post:
  *     summary: Importa e processa boletos de um arquivo PDF
  *     tags: [Boletos]
@@ -173,8 +145,15 @@ router.post('/import/csv', upload.single('file'), boletoController.importCSV);
  *                         type: string
  *       400:
  *         description: Nenhum arquivo foi enviado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
  *       500:
- *         description: Erro no servidor
+ *         $ref: '#/components/responses/Error'
  */
 router.post('/import/pdf', upload.single('file'), boletoController.importPDF);
 

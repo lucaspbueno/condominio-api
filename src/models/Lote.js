@@ -1,11 +1,11 @@
-const { Model, DataTypes } = require('sequelize');
-
 /**
  * @swagger
  * components:
  *   schemas:
  *     Lote:
  *       type: object
+ *       required:
+ *         - nome
  *       properties:
  *         id:
  *           type: integer
@@ -20,28 +20,22 @@ const { Model, DataTypes } = require('sequelize');
  *           type: string
  *           format: date-time
  *           description: Data de criação
+ *       example:
+ *         id: 17
+ *         nome: "0017"
+ *         ativo: true
+ *         criado_em: "2023-04-12T10:00:00Z"
  */
-module.exports = (sequelize) => {
-  class Lote extends Model {
-    static associate(models) {
-      // Um lote pode ter vários boletos
-      Lote.hasMany(models.Boleto, {
-        foreignKey: 'id_lote',
-        as: 'boletos'
-      });
-    }
-  }
-  
-  Lote.init({
+module.exports = (sequelize, DataTypes) => {
+  const Lote = sequelize.define('Lote', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
-      allowNull: false
+      autoIncrement: true
     },
     nome: {
       type: DataTypes.STRING(100),
-      allowNull: true
+      allowNull: false
     },
     ativo: {
       type: DataTypes.BOOLEAN,
@@ -52,11 +46,16 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.NOW
     }
   }, {
-    sequelize,
-    modelName: 'Lote',
     tableName: 'lotes',
     timestamps: false
   });
-  
+
+  Lote.associate = function(models) {
+    Lote.hasMany(models.Boleto, {
+      foreignKey: 'id_lote',
+      as: 'boletos'
+    });
+  };
+
   return Lote;
 };
