@@ -1,0 +1,21 @@
+# Node
+node_modules/
+.env
+dist/
+coverage/
+
+# Sequelize
+*.sqlite
+*.sqlite3
+
+# Logs
+logs
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
+tmp/
