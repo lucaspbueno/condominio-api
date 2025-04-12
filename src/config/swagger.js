@@ -10,8 +10,8 @@ const options = {
       version: '1.0.0',
       description: 'API para importar e gerenciar boletos de condomínio',
       contact: {
-        name: 'Flori Tech',
-        email: 'contato@floritech.com.br'
+        name: 'Lucas Parreiras',
+        email: 'lucaspbueno22@gmail.com'
       },
     },
     servers: [
