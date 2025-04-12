@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . .
 
-CMD ["npm", "run", "dev"]
+CMD ["sh", "-c", "npm run migrate && npm run seed && npm run dev"]
