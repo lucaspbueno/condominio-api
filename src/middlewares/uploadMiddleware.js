@@ -1,4 +1,3 @@
-cat > middlewares/uploadMiddleware.js << EOL
 const multer = require('multer');
 const path = require('path');
 
