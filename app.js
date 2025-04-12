@@ -1,8 +1,8 @@
-cat > app.js << EOL
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const boletoRoutes = require('./routes/boletoRoutes');
+const boletoRoutes = require('./src/routes/boletoRoutes');
+const swagger = require('./src/config/swagger');
 
 const app = express();
 
@@ -13,6 +13,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Servir arquivos estáticos da pasta uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Documentação da API com Swagger
+app.use('/api-docs', swagger.serve, swagger.setup);
 
 // Rotas
 app.use('/api/boletos', boletoRoutes);
@@ -34,6 +37,7 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Documentação da API disponível em http://localhost:${PORT}/api-docs`);
 });
 
 module.exports = app;
