@@ -1,11 +1,7 @@
 # Sistema de Gerenciamento de Boletos de Condomínio
 
-<div align="center">
-  <div style="display: flex; align-items: center;">
-    <h3>Status:&nbsp;</h3>
-    <h3><span style="background-color: #4CAF50; color: white; padding: 4px 8px; border-radius: 4px;">EM DESENVOLVIMENTO</span></h3>
-  </div>
-</div>
+
+![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -38,7 +34,7 @@ Foi desenvolvido como solução para o desafio técnico da Green Acesso, impleme
 
 - Node.js (versão 16 ou superior).
 - Docker e Docker Compose (opcional, para execução em contêiner).
-- PostgreSQL configurado.
+- PostgreSQL configurado (caso não utilize o docker).
 
 ### Configuração
 
@@ -48,7 +44,7 @@ Foi desenvolvido como solução para o desafio técnico da Green Acesso, impleme
    cd condominio-project
    ```
 
-2. Configure as variáveis de ambiente no arquivo `.env`:
+2. Configure as variáveis de ambiente no arquivo `.env` (apenas remova o .sample do arquivo **.env.sample**):
    ```plaintext
    DB_USER=user
    DB_PASS=password
@@ -68,12 +64,17 @@ Foi desenvolvido como solução para o desafio técnico da Green Acesso, impleme
    npm run migrate
    ```
 
-5. Inicie o servidor:
+5. Execute as seeders para inserir dados no banco de dados (opcional):
+   ```bash
+   npm run seed
+   ```
+
+6. Inicie o servidor:
    ```bash
    npm run dev
    ```
 
-6. Acesse a API em `http://localhost:3000`.
+7. Acesse a API em `http://localhost:3000`.
 
 ### Usando Docker
 
